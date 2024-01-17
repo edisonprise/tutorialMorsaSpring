@@ -1,17 +1,22 @@
 package com.edisonprise.tutorialMorsaSpring;
 
 import com.edisonprise.tutorialMorsaSpring.models.Libro;
+import com.edisonprise.tutorialMorsaSpring.models.Producto;
 import com.edisonprise.tutorialMorsaSpring.models.UserData;
+import com.edisonprise.tutorialMorsaSpring.services.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
 public class Rutas {
+
+    private OrderService orderService = new OrderService();
 
     private final Logger logger = LoggerFactory.getLogger(Rutas.class);
 
@@ -73,6 +78,12 @@ public class Rutas {
 
     @GetMapping("userData/v3")
     public UserData getUserdataV3() {
-        return new UserData("mary", 25);
+        return new UserData("mary", 25, "alameda 1234");
+    }
+
+    @PostMapping("/order")
+    public String crearOrden(@RequestBody List<Producto> products) {
+        orderService.saveOrder(products);
+        return "Prductos guardados";
     }
 }
