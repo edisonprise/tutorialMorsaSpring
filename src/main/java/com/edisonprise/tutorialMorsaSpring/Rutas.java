@@ -1,6 +1,7 @@
 package com.edisonprise.tutorialMorsaSpring;
 
 import com.edisonprise.tutorialMorsaSpring.models.Libro;
+import com.edisonprise.tutorialMorsaSpring.models.UserData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -64,5 +65,14 @@ public class Rutas {
                 .status(HttpStatus.OK)
                 .header("Content-Type", "application/json")
                 .body("{\"name\": \"mary\"}");
+    }
+    @GetMapping("userData/v2")
+    public Map<String, Map<String, Object>> getUserDataV2() {
+        return Map.of("user", Map.of("name", "mary", "age", 25));
+    }
+
+    @GetMapping("userData/v3")
+    public UserData getUserdataV3() {
+        return new UserData("mary", 25);
     }
 }
