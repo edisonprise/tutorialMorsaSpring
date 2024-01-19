@@ -3,9 +3,13 @@ package com.edisonprise.tutorialMorsaSpring;
 import com.edisonprise.tutorialMorsaSpring.models.Libro;
 import com.edisonprise.tutorialMorsaSpring.models.Producto;
 import com.edisonprise.tutorialMorsaSpring.models.UserData;
+import com.edisonprise.tutorialMorsaSpring.myBeans.MiBean;
+import com.edisonprise.tutorialMorsaSpring.myBeans.MiComponente;
+import com.edisonprise.tutorialMorsaSpring.services.IOrderService;
 import com.edisonprise.tutorialMorsaSpring.services.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +20,15 @@ import java.util.Map;
 @RestController
 public class Rutas {
 
-    private OrderService orderService = new OrderService();
+    private IOrderService orderService;
+    private MiBean miBean;
+    @Autowired
+    private MiComponente miComponente;
+
+    public Rutas(IOrderService orderService, MiBean miBean) {
+        this.orderService = orderService;
+        this.miBean = miBean;
+    }
 
     private final Logger logger = LoggerFactory.getLogger(Rutas.class);
 
@@ -84,6 +96,18 @@ public class Rutas {
     @PostMapping("/order")
     public String crearOrden(@RequestBody List<Producto> products) {
         orderService.saveOrder(products);
-        return "Prductos guardados";
+        return "Productos guardados";
+    }
+
+    @GetMapping("/mibean")
+    public String saludarDesdeBean() {
+        miBean.saludar();
+        return "Completado";
+    }
+
+    @GetMapping("/micomponente")
+    public String saludarDesdeComponente() {
+        miComponente.saludarDesdeComponente();
+        return "Completado";
     }
 }

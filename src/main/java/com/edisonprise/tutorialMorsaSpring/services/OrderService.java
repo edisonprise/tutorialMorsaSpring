@@ -4,10 +4,11 @@ import com.edisonprise.tutorialMorsaSpring.Rutas;
 import com.edisonprise.tutorialMorsaSpring.models.Producto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class OrderService {
+public class OrderService implements IOrderService {
 
     private final Logger logger = LoggerFactory.getLogger(OrderService.class);
     public void saveOrder(List<Producto> productos) {
