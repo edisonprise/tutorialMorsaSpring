@@ -3,3 +3,7 @@ logging:
     com.edisonprise.tutorialMorsaSpring: DEBUG
 
 server.error.include-message: always
+management.endpoints.web.exposure.include: '*'
+
+misurls:
+  database: "https://midatabase.com"
